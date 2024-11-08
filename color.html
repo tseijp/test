@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .hidden-answer {
+      border: 1px solid #000;
+      background: #fff;
+      color: #fff;
+      cursor: pointer;
+      padding: 2px 4px;
+      transition: color 0.3s;
+    }
+    .hidden-answer.revealed {
+      color: #000;
+    }
+    .checkbox-item {
+      gap: 8px;
+      margin: 4px 0;
+    }
+    input[type="checkbox"] {
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+  <script type="module">
+    const markdownText = `
+### 色のUD
+###### 色のはたらき
+- [ ] 機能的な効果↔情緒的な効果
+- [ ] **誘目性**: 注意向けていない対象の発見されやすさ
+- [ ] **視認性**: 注意向けて対象を探す時の発見しやすさ
+- [ ] **明視性**: 発見した対象の図形の理解しやすさ
+- [ ] **可読性**: 発見した対象の文字の理解しやすさ
+- [ ] **識別性**: 色を変えたことによる識別しやすさ
+
+###### 色のユニバーサルデザイン
+- [ ] 色覚特性: 人によって違う色の識別の個々の性質
+- [ ] **1**型→**L**錐体、**2**型→**M**錐体、**3**型→**S**錐体
+- [ ] **黄変**: 加齢で水晶体が黄ばみ**青**い光の感度低下
+- [ ] **白内障**: 視力低下、彩度の感度低下、光眩しく感じる
+
+###### 色覚説
+- [ ] **三色説**: ヘルツホルム: rgbに対応する視細胞が反応
+- [ ] **反対色説**: ヘリング: 反対色の赤緑、黄青が反応
+- [ ] **段階説**: lm差で赤緑、lm和で明度、lmとsの差で青黄
+
+### 光と色
+###### 光の性質と色
+- [ ] **分光分布**: ランプについて、波長と光の強さのグラフ
+- [ ] **分光反射率**: りんごについて、波長と反射率のグラフ
+- [ ] 反射光の分光分布＝分光分布×分光反射率
+
+###### 視覚系の構造と色
+- [ ] **フィル・イン**: 盲点を感じないこと
+- [ ] **分光感度**: l,m,s錐体のr,g,bの波長と感度グラフ
+- [ ] **分光視覚効率**: 各視細胞の波長と感度グラフ？？
+- [ ] **分光視感効率曲線**: 視覚系全体としての感度グラフ
+- [ ] **標準分光視感効率**: 国際標準規格化された視感効率
+- [ ] **視物質**: 光を吸収する物質、杆体は**ロドプシン**
+- [ ] **プルキンエ**: **薄明視**での杆体と錐体の分光視覚効率
+- [ ] **明所**視は**赤**に**錐体**、**暗所**視は**青**に**杆体**の最高感度
+
+###### 照明
+- [ ] **照度**: 面の明るさ、**ルクス**(**lx**)
+- [ ] **色温度**: 光の色、**ケルビン**(**K**)
+- [ ] **演色性**: 光源の特性
+- [ ] **光色**: 照明光の色み
+
+### 色の表示
+###### マンセル表色系
+- [ ] **色相** (**hue**): 原色**r**,**y**,**g**,**b**,**p**と中間色**yr**,**gy**,**bg**,**pb**,**rp**
+- [ ] **明度** (**value**): 鏡を10, **黒体**を0としたグレイスケール
+- [ ] **彩度** (**chroma**): 無彩色の0から最高彩度までスケール
+
+### 色彩心理
+###### 色の視覚効果
+- [ ] **ハーマングリッド**: 白い十字路に黒い影
+- [ ] **マッハバンド**: 側抑制で明暗の境界がパキる
+- [ ] **リープマン**: 明度差がない赤緑は見にくい
+- [ ] **エーレンシュタイン**: 十字路以外に白黒がにじむ
+- [ ] **ネオンカラー**: 十字路に色がにじむ
+- [ ] **マッカロー**: しましまで色がみえる
+- [ ] **透明視**: フィルムっぽくみえる
+
+### 色彩調和
+###### 色彩調和
+- [ ] **秩序**の原理: 規則性で調和
+- [ ] **なじみ**の原理: 日常よくみる配色は調和
+- [ ] **類似性**の原理: 色相やトーンなどの共通性で調和
+- [ ] **明瞭性**の原理: 明快なコントラストで調和
+- [ ] **ナチュラルハーモニー**: 明度を色相がyに近さに
+- [ ] **コンプレックスハーモニー**: 逆！
+- [ ] **ドミナントカラー**配色: 同じ色相で統一
+- [ ] **ドミナントトーン**配色: 色相以外を統一
+- [ ] **トーンオントーン**配色: 同系色相で明度差
+- [ ] **トーンイントーン**配色: 色相以外を近似
+- [ ] **トーナル**配色: 中明度、中低彩度、中間色
+- [ ] **カマイユ**配色: かなり近似した配色、フォは偽り
+- [ ] **ビコロール**配色: 高彩度で対象の色相
+- [ ] **ダイアード**2**トライアド**3**テトラード**4**ペンタード**5
+- [ ] **スプリットコンメタリー**1対2
+`.trim();
+
+    const md = new markdownit({
+      html: true,
+      breaks: true
+    });
+
+    const transformMarkdown = (text) => {
+      // Transform checkboxes
+      text = text.replace(/- \[ \]/g, '<div class="checkbox-item"><input type="checkbox">');
+      text = text.replace(/- \[x\]/g, '<div class="checkbox-item"><input type="checkbox" checked>');
+
+      // Transform hidden answers
+      text = text.replace(/\*\*(.*?)\*\*/g, '<span class="hidden-answer">$1</span>');
+
+      // Close checkbox divs
+      let html = md.render(text);
+      html = html.replace(/<\/p>/g, '</div>');
+
+      return html;
+    };
+
+    const handleClick = (event) => {
+      if (event.target.classList.contains('hidden-answer')) {
+        event.target.classList.toggle('revealed');
+      }
+    };
+
+    const mount = () => {
+      const root = document.getElementById('root');
+      root.innerHTML = transformMarkdown(markdownText);
+      root.addEventListener('click', handleClick);
+    };
+
+    window.addEventListener('DOMContentLoaded', mount);
+  </script>
+</body>
+</html>
