@@ -1,172 +1,47 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
         <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta charset="UTF-8" />
                 <title>色彩検定1級 一次試験対策 完全学習サイト | 2025年度版 全範囲チェックリスト付き</title>
-                <meta name="description" content="色彩検定1級の一次試験対策に特化した学習サイト。色彩と文化、色彩調和論、光と色、色の表示、測色、心理評価法まで全範囲を網羅。チェックボックス付きで学習進捗を管理。合格率40%の難関試験を突破するための実践的な対策ツール。">
-                <meta name="keywords" content="色彩検定1級,色彩検定,一次試験,対策,勉強法,カラーコーディネーター,色彩調和論,色彩と文化,心理評価法,測色,2025">
-                <meta name="author" content="色彩検定1級対策サイト">
-                <meta property="og:title" content="色彩検定1級 一次試験対策 完全学習サイト | 2025年度版">
-                <meta property="og:description" content="色彩検定1級一次試験の全範囲を網羅した学習ツール。チェックボックスで進捗管理が可能。合格率40%の難関試験対策に最適。">
-                <meta property="og:type" content="website">
-                <meta property="og:locale" content="ja_JP">
-                <meta name="twitter:card" content="summary_large_image">
-                <meta name="twitter:title" content="色彩検定1級 一次試験対策 完全学習サイト">
-                <meta name="twitter:description" content="色彩検定1級一次試験の全範囲を網羅。チェックボックスで学習進捗を管理できる実践的対策ツール。">
-                <link rel="canonical" href="https://tseijp.github.io/test/">
-                <script type="application/ld+json">
-                {
-                        "@context": "https://schema.org",
-                        "@type": "EducationalOccupationalCredential",
-                        "name": "色彩検定1級",
-                        "description": "色彩検定1級の一次試験対策学習サイト。色彩と文化、色彩調和論、光と色、色の表示、測色、心理評価法、ビジネス活用の全範囲を網羅。",
-                        "credentialCategory": "certification",
-                        "educationalLevel": "Advanced",
-                        "competencyRequired": "色彩に関する専門的知識と実務応用能力",
-                        "about": {
-                                "@type": "DefinedTerm",
-                                "name": "色彩検定",
-                                "description": "色に関する幅広い知識や技能を問う検定試験"
-                        }
-                }
-                </script>
+                <meta name="description" content="色彩検定1級の一次試験対策に特化した学習サイト。色彩と文化、色彩調和論、光と色、色の表示、測色、心理評価法まで全範囲を網羅。チェックボックス付きで学習進捗を管理。合格率40%の難関試験を突破するための実践的な対策ツール。" />
+                <meta name="keywords" content="色彩検定1級,色彩検定,一次試験,対策,勉強法,カラーコーディネーター,色彩調和論,色彩と文化,心理評価法,測色,2025" />
+                <meta name="author" content="色彩検定1級対策サイト" />
+                <meta property="og:title" content="色彩検定1級 一次試験対策 完全学習サイト | 2025年度版" />
+                <meta property="og:description" content="色彩検定1級一次試験の全範囲を網羅した学習ツール。チェックボックスで進捗管理が可能。合格率40%の難関試験対策に最適。" />
+                <meta property="og:type" content="website" />
+                <meta property="og:locale" content="ja_JP" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="色彩検定1級 一次試験対策 完全学習サイト" />
+                <meta name="twitter:description" content="色彩検定1級一次試験の全範囲を網羅。チェックボックスで学習進捗を管理できる実践的対策ツール。" />
+                <link rel="canonical" href="https://tseijp.github.io/test/" />
                 <style>
-                        * {
-                                box-sizing: border-box;
-                        }
-                        body {
-                                font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
-                                line-height: 1.75;
-                                margin: 0;
-                                padding: 0;
-                                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                                color: #2c3e50;
-                        }
-                        header {
-                                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-                                padding: 1.5rem 1rem;
-                                text-align: center;
-                                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-                        }
-                        header h1 {
-                                margin: 0 0 0.5rem 0;
-                                font-size: clamp(1.2rem, 5vw, 1.8rem);
-                                color: #fff;
-                                font-weight: 700;
-                                letter-spacing: 0.05em;
-                        }
-                        header p {
-                                margin: 0;
-                                color: rgba(255, 255, 255, 0.9);
-                                font-size: clamp(0.85rem, 3vw, 1rem);
-                        }
-                        main {
-                                max-width: 960px;
-                                margin: 0 auto;
-                                padding: 1rem 0.5rem;
-                        }
-                        @media (min-width: 768px) {
-                                main {
-                                        padding: 2rem 1rem;
-                                }
-                        }
                         #root {
-                                background: #fff;
-                                padding: 1rem;
-                                border-radius: 0;
-                        }
-                        @media (min-width: 768px) {
-                                #root {
-                                        padding: 2rem;
-                                        border-radius: 12px;
-                                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-                                }
-                        }
-                        footer {
-                                background: linear-gradient(90deg, #434343 0%, #000000 100%);
-                                color: #fff;
-                                padding: 1.5rem 1rem;
-                                text-align: center;
-                                margin-top: 2rem;
-                        }
-                        footer p {
-                                margin: 0;
-                                font-size: 0.9rem;
-                                opacity: 0.9;
-                        }
-                        img {
-                                max-width: 100%;
-                                height: auto;
-                                display: block;
-                        }
-                        table {
-                                width: 100%;
-                                table-layout: fixed;
-                                border-collapse: collapse;
-                        }
-                        table img {
-                                width: 100%;
-                                object-fit: cover;
-                        }
-                        h3 {
-                                color: #667eea;
-                                border-left: 4px solid #667eea;
-                                padding-left: 0.75rem;
-                                margin-top: 2rem;
-                                margin-bottom: 1rem;
-                                font-size: clamp(1.1rem, 4vw, 1.3rem);
-                        }
-                        ul {
-                                padding-left: 1.5rem;
-                        }
-                        @media (min-width: 768px) {
-                                ul {
-                                        padding-left: 2rem;
-                                }
+                                max-width: 720px;
+                                margin: auto;
+                                margin-bottom: 5rem;
                         }
                         .hidden-answer {
-                                border: 1px solid #667eea;
-                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                                color: #667eea;
+                                border: 1px solid #000;
+                                background: #fff;
+                                color: #fff;
                                 cursor: pointer;
-                                padding: 2px 6px;
-                                transition: all 0.3s ease;
-                                border-radius: 3px;
-                                font-weight: 600;
+                                padding: 2px 4px;
+                                transition: color 0.3s;
                         }
                         .hidden-answer.revealed {
-                                color: #fff;
-                                border-color: #764ba2;
+                                color: #000;
                         }
                         .checkbox-item {
                                 gap: 8px;
-                                margin: 6px 0;
-                                line-height: 1.6;
+                                margin: 4px 0;
                         }
                         input[type='checkbox'] {
                                 margin-top: 4px;
-                                accent-color: #667eea;
-                                width: 18px;
-                                height: 18px;
-                                cursor: pointer;
-                        }
-                        input[type='checkbox']:checked {
-                                background: #667eea;
                         }
                 </style>
         </head>
         <body>
-                <header>
-                        <h1>色彩検定1級 一次試験対策</h1>
-                        <p>2025年度版 全範囲チェックリスト</p>
-                </header>
-                <main>
-                        <article id="root"></article>
-                </main>
-                <footer>
-                        <p>色彩検定1級合格に向けた学習を支援するツールです。各項目をチェックして進捗を管理できます。</p>
-                </footer>
+                <div id="root"></div>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
                 <script type="module">
                         const markdownText = `
