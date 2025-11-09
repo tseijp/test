@@ -196,17 +196,18 @@
                                 const root = event.currentTarget
                                 const checkboxes = root.querySelectorAll("input[type='checkbox']")
                                 const total = checkboxes.length
-                                let value = 0
+                                let value = 0n
                                 checkboxes.forEach((checkbox, index) => {
                                         if (checkbox.checked) {
-                                                value |= 1 << (total - index - 1)
+                                                const shift = BigInt(total - index - 1)
+                                                value |= 1n << shift
                                         }
                                 })
-                                if (value === 0) {
+                                if (value === 0n) {
                                         const { pathname, search } = window.location
                                         history.replaceState(null, '', `${pathname}${search}`)
                                 } else {
-                                        window.location.hash = String(value)
+                                        window.location.hash = value.toString()
                                 }
                         }
                         const handleClick = (event) => {
@@ -219,14 +220,19 @@
                                 root.innerHTML = transformMarkdown(markdownText)
                                 const checkboxes = root.querySelectorAll("input[type='checkbox']")
                                 const hash = window.location.hash.slice(1)
-                                const value = hash === '' ? 0 : parseInt(hash, 10)
-                                if (!Number.isNaN(value)) {
-                                        const total = checkboxes.length
-                                        checkboxes.forEach((checkbox, index) => {
-                                                const mask = 1 << (total - index - 1)
-                                                checkbox.checked = (value & mask) !== 0
-                                        })
+                                let value = 0n
+                                if (hash !== '') {
+                                        try {
+                                                value = BigInt(hash)
+                                        } catch (error) {
+                                                value = 0n
+                                        }
                                 }
+                                const total = checkboxes.length
+                                checkboxes.forEach((checkbox, index) => {
+                                        const mask = 1n << BigInt(total - index - 1)
+                                        checkbox.checked = (value & mask) !== 0n
+                                })
                                 root.addEventListener('click', handleClick)
                                 root.addEventListener('change', handleCheck)
                         }
