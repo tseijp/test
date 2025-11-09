@@ -189,6 +189,31 @@
                                 html = html.replace(/<\/p>/g, '</div>')
                                 return html
                         }
+                        const hashAlphabet = '0123456789abcdefghijklmnopqrstuvwxyz'
+                        const encodeHashValue = (value) => {
+                                if (value === 0n) {
+                                        return ''
+                                }
+                                let result = ''
+                                let current = value
+                                while (current > 0n) {
+                                        const digit = Number(current % 36n)
+                                        result = hashAlphabet[digit] + result
+                                        current /= 36n
+                                }
+                                return result
+                        }
+                        const decodeHashValue = (hash) => {
+                                let result = 0n
+                                for (const char of hash.toLowerCase()) {
+                                        const digit = hashAlphabet.indexOf(char)
+                                        if (digit === -1) {
+                                                throw new Error('invalid hash digit')
+                                        }
+                                        result = result * 36n + BigInt(digit)
+                                }
+                                return result
+                        }
                         const handleCheck = (event) => {
                                 if (!event.target.matches("input[type='checkbox']")) {
                                         return
@@ -207,7 +232,7 @@
                                         const { pathname, search } = window.location
                                         history.replaceState(null, '', `${pathname}${search}`)
                                 } else {
-                                        window.location.hash = value.toString()
+                                        window.location.hash = encodeHashValue(value)
                                 }
                         }
                         const handleClick = (event) => {
@@ -223,7 +248,7 @@
                                 let value = 0n
                                 if (hash !== '') {
                                         try {
-                                                value = BigInt(hash)
+                                                value = decodeHashValue(hash)
                                         } catch (error) {
                                                 value = 0n
                                         }
