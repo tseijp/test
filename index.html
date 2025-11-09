@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
         <head>
                 <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+                <meta name="theme-color" content="#4A90E2" />
                 <title>色彩検定1級 一次試験対策 完全学習サイト | 2025年度版 全範囲チェックリスト付き</title>
                 <meta name="description" content="色彩検定1級の一次試験対策に特化した学習サイト。色彩と文化、色彩調和論、光と色、色の表示、測色、心理評価法まで全範囲を網羅。チェックボックス付きで学習進捗を管理。合格率40%の難関試験を突破するための実践的な対策ツール。" />
                 <meta name="keywords" content="色彩検定1級,色彩検定,一次試験,対策,勉強法,カラーコーディネーター,色彩調和論,色彩と文化,心理評価法,測色,2025" />
@@ -14,29 +16,117 @@
                 <meta name="twitter:title" content="色彩検定1級 一次試験対策 完全学習サイト" />
                 <meta name="twitter:description" content="色彩検定1級一次試験の全範囲を網羅。チェックボックスで学習進捗を管理できる実践的対策ツール。" />
                 <link rel="canonical" href="https://tseijp.github.io/test/" />
+                <script type="application/ld+json">
+                {
+                        "@context": "https://schema.org",
+                        "@type": "Course",
+                        "name": "色彩検定1級 一次試験対策",
+                        "description": "色彩検定1級一次試験の全範囲を網羅した学習ツール",
+                        "provider": {
+                                "@type": "Organization",
+                                "name": "色彩検定1級対策サイト"
+                        },
+                        "educationalLevel": "Advanced",
+                        "inLanguage": "ja",
+                        "hasCourseInstance": {
+                                "@type": "CourseInstance",
+                                "courseMode": "online"
+                        }
+                }
+                </script>
+                <script type="application/ld+json">
+                {
+                        "@context": "https://schema.org",
+                        "@type": "LearningResource",
+                        "name": "色彩検定1級 学習チェックリスト",
+                        "educationalUse": "練習問題",
+                        "learningResourceType": "Practice Problems",
+                        "inLanguage": "ja"
+                }
+                </script>
                 <style>
+                        * {
+                                box-sizing: border-box;
+                        }
+                        html,
+                        body {
+                                margin: 0;
+                                padding: 0;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+                                line-height: 1.6;
+                                color: #2c3e50;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                        }
                         #root {
-                                max-width: 720px;
-                                margin: auto;
-                                margin-bottom: 5rem;
+                                max-width: 100%;
+                                padding: 8px;
+                                margin-bottom: 2rem;
+                        }
+                        @media (min-width: 768px) {
+                                #root {
+                                        max-width: 1200px;
+                                        margin: 0 auto 3rem;
+                                        padding: 16px;
+                                }
+                        }
+                        h3 {
+                                color: #4A90E2;
+                                border-left: 4px solid #E67E22;
+                                padding-left: 12px;
+                                margin: 1.5rem 0 1rem;
+                                font-size: 1.2rem;
+                        }
+                        @media (max-width: 767px) {
+                                body {
+                                        font-size: 11px;
+                                }
+                                h3 {
+                                        font-size: 1rem;
+                                        padding-left: 8px;
+                                }
                         }
                         .hidden-answer {
-                                border: 1px solid #000;
-                                background: #fff;
-                                color: #fff;
+                                border: 1px solid #95a5a6;
+                                background: transparent;
+                                color: transparent;
                                 cursor: pointer;
-                                padding: 2px 4px;
-                                transition: color 0.3s;
+                                padding: 1px 3px;
+                                transition: all 0.2s ease;
+                                display: inline-block;
+                                user-select: none;
                         }
                         .hidden-answer.revealed {
-                                color: #000;
+                                color: #2c3e50;
+                                background: #ecf0f1;
+                                border-color: #3498db;
                         }
                         .checkbox-item {
-                                gap: 8px;
-                                margin: 4px 0;
+                                display: flex;
+                                align-items: flex-start;
+                                gap: 6px;
+                                margin: 2px 0;
+                                padding: 4px 0;
                         }
                         input[type='checkbox'] {
                                 margin-top: 4px;
+                                flex-shrink: 0;
+                                accent-color: #27ae60;
+                        }
+                        table {
+                                width: 100%;
+                                border-collapse: collapse;
+                        }
+                        table img {
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                        }
+                        ul {
+                                list-style: none;
+                                padding-left: 0;
+                        }
+                        li {
+                                margin: 4px 0;
                         }
                 </style>
         </head>
