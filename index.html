@@ -202,6 +202,52 @@
                                 html = html.replace(/<\/p>/g, '</div>')
                                 return html
                         }
+                        const hashAlphabet = '0123456789abcdefghijklmnopqrstuvwxyz'
+                        const encodeHashValue = (value) => {
+                                if (value === 0n) {
+                                        return ''
+                                }
+                                let result = ''
+                                let current = value
+                                while (current > 0n) {
+                                        const digit = Number(current % 36n)
+                                        result = hashAlphabet[digit] + result
+                                        current /= 36n
+                                }
+                                return result
+                        }
+                        const decodeHashValue = (hash) => {
+                                let result = 0n
+                                for (const char of hash.toLowerCase()) {
+                                        const digit = hashAlphabet.indexOf(char)
+                                        if (digit === -1) {
+                                                throw new Error('invalid hash digit')
+                                        }
+                                        result = result * 36n + BigInt(digit)
+                                }
+                                return result
+                        }
+                        const handleCheck = (event) => {
+                                if (!event.target.matches("input[type='checkbox']")) {
+                                        return
+                                }
+                                const root = event.currentTarget
+                                const checkboxes = root.querySelectorAll("input[type='checkbox']")
+                                const total = checkboxes.length
+                                let value = 0n
+                                checkboxes.forEach((checkbox, index) => {
+                                        if (checkbox.checked) {
+                                                const shift = BigInt(total - index - 1)
+                                                value |= 1n << shift
+                                        }
+                                })
+                                if (value === 0n) {
+                                        const { pathname, search } = window.location
+                                        history.replaceState(null, '', `${pathname}${search}`)
+                                } else {
+                                        window.location.hash = encodeHashValue(value)
+                                }
+                        }
                         const handleClick = (event) => {
                                 if (event.target.classList.contains('hidden-answer')) {
                                         event.target.classList.toggle('revealed')
@@ -210,7 +256,23 @@
                         const mount = () => {
                                 const root = document.getElementById('root')
                                 root.innerHTML = transformMarkdown(markdownText)
+                                const checkboxes = root.querySelectorAll("input[type='checkbox']")
+                                const hash = window.location.hash.slice(1)
+                                let value = 0n
+                                if (hash !== '') {
+                                        try {
+                                                value = decodeHashValue(hash)
+                                        } catch (error) {
+                                                value = 0n
+                                        }
+                                }
+                                const total = checkboxes.length
+                                checkboxes.forEach((checkbox, index) => {
+                                        const mask = 1n << BigInt(total - index - 1)
+                                        checkbox.checked = (value & mask) !== 0n
+                                })
                                 root.addEventListener('click', handleClick)
+                                root.addEventListener('change', handleCheck)
                         }
                         window.addEventListener('DOMContentLoaded', mount)
                 </script>
