@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
         <head>
                 <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+                <meta name="theme-color" content="#4A90E2" />
                 <title>色彩検定1級 一次試験対策 完全学習サイト | 2025年度版 全範囲チェックリスト付き</title>
                 <meta name="description" content="色彩検定1級の一次試験対策に特化した学習サイト。色彩と文化、色彩調和論、光と色、色の表示、測色、心理評価法まで全範囲を網羅。チェックボックス付きで学習進捗を管理。合格率40%の難関試験を突破するための実践的な対策ツール。" />
                 <meta name="keywords" content="色彩検定1級,色彩検定,一次試験,対策,勉強法,カラーコーディネーター,色彩調和論,色彩と文化,心理評価法,測色,2025" />
@@ -14,29 +16,111 @@
                 <meta name="twitter:title" content="色彩検定1級 一次試験対策 完全学習サイト" />
                 <meta name="twitter:description" content="色彩検定1級一次試験の全範囲を網羅。チェックボックスで学習進捗を管理できる実践的対策ツール。" />
                 <link rel="canonical" href="https://tseijp.github.io/test/" />
+                <script type="application/ld+json">
+                        {
+                                "@context": "https://schema.org",
+                                "@type": "Course",
+                                "name": "色彩検定1級 一次試験対策",
+                                "description": "色彩検定1級一次試験の全範囲を網羅した学習ツール",
+                                "provider": {
+                                        "@type": "Organization",
+                                        "name": "色彩検定1級対策サイト"
+                                },
+                                "educationalLevel": "Advanced",
+                                "inLanguage": "ja",
+                                "hasCourseInstance": {
+                                        "@type": "CourseInstance",
+                                        "courseMode": "online"
+                                }
+                        }
+                </script>
+                <script type="application/ld+json">
+                        {
+                                "@context": "https://schema.org",
+                                "@type": "LearningResource",
+                                "name": "色彩検定1級 学習チェックリスト",
+                                "educationalUse": "練習問題",
+                                "learningResourceType": "Practice Problems",
+                                "inLanguage": "ja"
+                        }
+                </script>
                 <style>
+                        * {
+                                box-sizing: border-box;
+                        }
+                        html,
+                        body {
+                                margin: 0;
+                                padding: 0;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+                                line-height: 1.6;
+                                color: #333;
+                                background: #fff;
+                        }
                         #root {
-                                max-width: 720px;
-                                margin: auto;
-                                margin-bottom: 5rem;
+                                max-width: 100%;
+                                padding: 8px;
+                                margin-bottom: 2rem;
+                        }
+                        @media (min-width: 768px) {
+                                #root {
+                                        max-width: 1200px;
+                                        margin: 0 auto 3rem;
+                                        padding: 16px;
+                                }
+                        }
+                        h3 {
+                                color: #333;
+                                margin: 1.5rem 0 1rem;
+                                font-weight: 600;
+                        }
+                        @media (max-width: 767px) {
+                                body {
+                                        font-size: 10px;
+                                }
+                                h3 {
+                                        font-size: 1.1rem;
+                                }
                         }
                         .hidden-answer {
-                                border: 1px solid #000;
-                                background: #fff;
-                                color: #fff;
+                                border: 1px solid #95a5a6;
+                                background: transparent;
+                                color: transparent;
                                 cursor: pointer;
-                                padding: 2px 4px;
-                                transition: color 0.3s;
+                                padding: 1px 3px;
+                                transition: all 0.2s ease;
+                                display: inline-block;
+                                user-select: none;
                         }
                         .hidden-answer.revealed {
-                                color: #000;
+                                color: #2c3e50;
+                                background: #ecf0f1;
+                                border-color: #3498db;
                         }
                         .checkbox-item {
-                                gap: 8px;
-                                margin: 4px 0;
+                                gap: 6px;
+                                margin: 2px 0;
+                                padding: 4px 0;
                         }
                         input[type='checkbox'] {
                                 margin-top: 4px;
+                                flex-shrink: 0;
+                        }
+                        table {
+                                width: 100%;
+                                border-collapse: collapse;
+                        }
+                        table img {
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                        }
+                        ul {
+                                list-style: none;
+                                padding-left: 0;
+                        }
+                        li {
+                                margin: 4px 0;
                         }
                 </style>
         </head>
@@ -104,10 +188,10 @@
 - [ ] **灼熱**: unrealBloom
 - [ ] { みる, だす } 側から色を分類: { **心理**, **測色** } 学的分類
 - [ ] { 知覚, 測定 }した色から分類: { **知覚**, **心理物理** } 色
-- [ ] 電力 W × **ランプ効率** = **光束** [**lm**] = ∫ **輝度** dxdy [cd/m^2] = ∫ **照度** dS [**lx**]
+- [ ] 電力 W × **ランプ効率** = **光束** [**lm**] = ∫ **照度** dS [**lx**]
 - [ ] **測光量**: 放射量 × 標準分光視覚効率（波長によって異なる人の感度）
+- [ ] **光度** [**cd**]: 点光源からの光の強さ = ∫∫ **輝度** dxdy [cd/m^2]
 - [ ] **放射**: 電磁波が出ること
-- [ ] **光度** [**cd**]: 点光源からの光の強さ
 - [ ] **グレア** < **不快グレア**（**10000**cd/m^2） < **減能グレア**: まぶしい
 - [ ] **標準イルミナント**: 照明光の世界標準
 - [ ] **グラスマン**の法則: 加法混合
@@ -131,11 +215,11 @@
 - [ ] **等純**系列: 無彩色だと上から W=100 => a, c, e, g, i, l, n, p => S=100
 - [ ] **等価値色**系列: 色相以外が等しい色のグループ
 - [ ] NCS: **sc-φ**: 4020（**左下方向の黒 s** に 40%, **右方向の c** に 20%近い色）- R70B
-- [ ] **類似度**: 4020 - R70B => 赤: **r への 30% × c への 20%**, 白: **(100% - s への 40%)× c への 20%**
-- [ ] **色相 φ**: R70B => R から時計周りに 70% × 90° の B 側 => R **30%** B **70**% の類似度
-- [ ] **クロマチックネス**度 **c** = Σ **6 主用色への**類似 度 - **白への類似**度 **w** + **黒への類似**度 **s**
+- [ ] **類似度**: 4020 - R70B => 赤: **r への 30**% × **c への 20**%, 白: **(100 - s への 40)**%× c への **20**%
+- [ ] 色相 **φ**: R70B => R から時計周りに 70% × 90° の B 側 => R **30**% B **70**% の類似度
+- [ ] **クロマチックネス**度 **c** = Σ **6 主用色**への類似度 - (**w**への類似度 + **s**への類似度)
 - [ ] **色彩語**: 色を表示する言葉。6 色の**ユニーク色相** が基本
-- [ ] **光源色の色名**: **基本色名**と **鮮やかさ**, **色相**に関する言葉
+- [ ] **光源**色の色名: **基本色名**と **鮮やかさ**, **色相**に関する言葉
 
 ### 測色
 
@@ -152,7 +236,7 @@
 - [ ] **順序**尺度: 1 位, 2 位, 3 位, ... と決定
 - [ ] **間隔**尺度: (1) とてもよい (2) ... から選択
 - [ ] **比率**尺度: 0 ~ 100％ で連続した値
-- [ ] **サーストン**の**一対比較**法: (1) 赤 (2) 緑 の nC2 個二択を数人集計
+- [ ] **サーストン**の**一対比較**法: (1) 赤 (2) 緑 の **nC2** 個二択を数人集計
 - [ ] **シェッフェ**の**一対比較**法: (1) とてもよい (2) ... から数人が選択
 - [ ] **SD** 法: **イメージプロフィル**を**因子分析**して**イメージマップ**
 - [ ] **評価**性:「好きな - 嫌いな」「美しい - 汚い」
@@ -171,10 +255,10 @@
 - [ ] **不変色相**: 青 **474nm** 緑 **506nm** 黄 **571nm** の**不変波長** は影響しない
 - [ ] **アブニー** 効果: 彩度が変化すると色相も変化して見える
 - [ ] **ヘルムホルツ**-**コールラウシュ** 効果: 等明度でも、彩度が高くなると明るく感じる
-- [ ] **ヘルソン**-**ジャッド** 効果: 背景が明るいと照明の色味を帯びる（背景が暗いと捕食）
+- [ ] **ヘルソン**-**ジャッド** 効果: 背景が明るいと照明の色味を帯びる（背景が暗いと補色）
 - [ ] **ハルト**効果: 明るいと**カラフルネス**, 暗いと無彩色に見える
 - [ ] **ゲルプ**効果: 白い紙を置くと、背景が暗くみえる
-- [ ] 明るさの**恒常**性: 暗くても、白い紙を白色とわかる
+- [ ] 明るさの**恒常**性: 暗闇でも、白い紙を白色とわかる
 
 ### 色のビジネス活用
 
