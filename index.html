@@ -189,6 +189,26 @@
                                 html = html.replace(/<\/p>/g, '</div>')
                                 return html
                         }
+                        const handleCheck = (event) => {
+                                if (!event.target.matches("input[type='checkbox']")) {
+                                        return
+                                }
+                                const root = event.currentTarget
+                                const checkboxes = root.querySelectorAll("input[type='checkbox']")
+                                const total = checkboxes.length
+                                let value = 0
+                                checkboxes.forEach((checkbox, index) => {
+                                        if (checkbox.checked) {
+                                                value |= 1 << (total - index - 1)
+                                        }
+                                })
+                                if (value === 0) {
+                                        const { pathname, search } = window.location
+                                        history.replaceState(null, '', `${pathname}${search}`)
+                                } else {
+                                        window.location.hash = String(value)
+                                }
+                        }
                         const handleClick = (event) => {
                                 if (event.target.classList.contains('hidden-answer')) {
                                         event.target.classList.toggle('revealed')
@@ -197,7 +217,18 @@
                         const mount = () => {
                                 const root = document.getElementById('root')
                                 root.innerHTML = transformMarkdown(markdownText)
+                                const checkboxes = root.querySelectorAll("input[type='checkbox']")
+                                const hash = window.location.hash.slice(1)
+                                const value = hash === '' ? 0 : parseInt(hash, 10)
+                                if (!Number.isNaN(value)) {
+                                        const total = checkboxes.length
+                                        checkboxes.forEach((checkbox, index) => {
+                                                const mask = 1 << (total - index - 1)
+                                                checkbox.checked = (value & mask) !== 0
+                                        })
+                                }
                                 root.addEventListener('click', handleClick)
+                                root.addEventListener('change', handleCheck)
                         }
                         window.addEventListener('DOMContentLoaded', mount)
                 </script>
