@@ -46,10 +46,10 @@
 </script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Hiragino Kaku Gothic ProN',Meiryo,sans-serif;transition:background-color 0.8s ease}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Hiragino Kaku Gothic ProN',Meiryo,sans-serif;transition:background-color 0.8s ease;background-color:#282828}
 #app{min-height:100%;display:flex;flex-direction:column}
-.header{padding:12px;text-align:center;background:rgba(0,0,0,0.1)}
-.header h1{font-size:14px;font-weight:400}
+.header{padding:12px;text-align:center;background:rgba(0,0,0,0.2)}
+.header h1{font-size:14px;font-weight:400;text-shadow:0 1px 3px rgba(0,0,0,0.5);color:rgba(255,255,255,0.9);transition:color 0.5s ease}
 .grid{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:2px;padding:2px}
 .cell{aspect-ratio:1;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;transition:transform 0.2s;position:relative;overflow:hidden}
 .cell:active{transform:scale(0.95)}
@@ -60,7 +60,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 .info{opacity:0;transition:opacity 0.3s;text-align:center;padding:4px;font-size:10px;line-height:1.3;text-shadow:0 0 4px rgba(0,0,0,0.8)}
 .info .name{font-weight:600}
 .info .pccs{font-size:9px;opacity:0.9}
-.footer{padding:8px;text-align:center;font-size:11px;background:rgba(0,0,0,0.1)}
+.footer{padding:8px;text-align:center;font-size:11px;background:rgba(0,0,0,0.2);color:rgba(255,255,255,0.9);transition:color 0.5s ease}
 .stats{display:flex;justify-content:center;gap:16px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}.info{font-size:12px}.info .pccs{font-size:10px}}
 </style>
@@ -345,7 +345,15 @@ return { hex, pccs: pccs.trim(), name, munsell, isExam: pccs.trim() !== '' }
 })
 const examColors = colors.filter(c => c.isExam)
 const nonExamColors = colors.filter(c => !c.isExam)
-const sortedColors = [...examColors, ...nonExamColors]
+const shuffle = (arr) => {
+const a = [...arr]
+for (let i = a.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1))
+;[a[i], a[j]] = [a[j], a[i]]
+}
+return a
+}
+const sortedColors = [...shuffle(examColors), ...shuffle(nonExamColors)]
 const hashAlphabet = '0123456789abcdefghijklmnopqrstuvwxyz'
 const encodeHash = (value) => {
 if (value === 0n) return ''
@@ -406,7 +414,13 @@ return
 location.hash = encodeHash(checkedState)
 }
 const updateBackground = () => {
-document.body.style.backgroundColor = mixColor(lastColor, 0.2)
+const bgColor = mixColor(lastColor, 0.25)
+document.body.style.backgroundColor = bgColor
+const rgb = bgColor.match(/\d+/g).map(Number)
+const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
+const textColor = lum > 0.5 ? 'rgba(0,0,0,0.9)' : 'rgba(255,255,255,0.9)'
+document.querySelector('.header h1').style.color = textColor
+document.querySelector('.footer').style.color = textColor
 }
 const createCell = (color, index) => {
 const cell = document.createElement('div')
