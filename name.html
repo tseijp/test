@@ -55,7 +55,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 .cell:active{transform:scale(0.95)}
 .cell.revealed .info{opacity:1}
 .cell.checked::after{content:'✓';position:absolute;top:4px;right:4px;font-size:12px;color:rgba(255,255,255,0.8)}
-.cell.exam-out{opacity:0.6}
+.cell.exam-out{}
 .cell.exam-out .info{opacity:1}
 .info{opacity:0;transition:opacity 0.3s;text-align:center;padding:4px;font-size:11px;line-height:1.4}
 .info .name{font-weight:600}
@@ -64,6 +64,8 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 .footer{padding:8px;text-align:center;font-size:11px;background:rgba(0,0,0,0.2);color:rgba(255,255,255,0.9);transition:color 0.5s ease}
 .stats{display:flex;justify-content:center;gap:16px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}.info{font-size:13px}.info .pccs{font-size:11px}}
+.reset{position:fixed;bottom:12px;left:12px;background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 12px;border-radius:4px;font-size:11px;cursor:pointer;z-index:100}
+.reset:active{transform:scale(0.95)}
 </style>
 </head>
 <body>
@@ -71,6 +73,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 <header class="header"><h1>色彩検定1級 2次試験対策 JIS慣用色名</h1></header>
 <main class="grid" id="grid" role="application" aria-label="JIS慣用色名学習グリッド"></main>
 <footer class="footer"><div class="stats"><span id="progress" aria-live="polite">0/61</span><span id="percent" aria-live="polite">0%</span></div></footer>
+<button class="reset" id="reset">リセット</button>
 </div>
 <script type="module">
 const raw = `#F9A1D0||とき色|7RP 7.5/8
@@ -457,7 +460,7 @@ nameEl.className = 'name'
 nameEl.innerHTML = color.displayName
 const pccsEl = document.createElement('div')
 pccsEl.className = 'pccs'
-pccsEl.textContent = color.pccs || '試験外'
+pccsEl.textContent = color.pccs
 info.appendChild(nameEl)
 info.appendChild(pccsEl)
 cell.appendChild(info)
@@ -489,6 +492,14 @@ if (hash) checkedState = decodeHash(hash)
 sortedColors.forEach((color, i) => grid.appendChild(createCell(color, i)))
 updateProgress()
 updateBackground()
+document.getElementById('reset').addEventListener('click', () => {
+checkedState = 0n
+lastColor = '#282828'
+history.replaceState(null, '', location.pathname + location.search)
+document.querySelectorAll('.cell.checked').forEach(c => c.classList.remove('checked', 'revealed'))
+updateProgress()
+updateBackground()
+})
 }
 init()
 </script>
