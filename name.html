@@ -59,6 +59,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 .cell.exam-out .info{opacity:1}
 .info{opacity:0;transition:opacity 0.3s;text-align:center;padding:4px;font-size:11px;line-height:1.4}
 .info .name{font-weight:600}
+.info .name rt{font-size:8px;font-weight:400}
 .info .pccs{font-size:10px;opacity:0.9}
 .footer{padding:8px;text-align:center;font-size:11px;background:rgba(0,0,0,0.2);color:rgba(255,255,255,0.9);transition:color 0.5s ease}
 .stats{display:flex;justify-content:center;gap:16px}
@@ -339,9 +340,27 @@ const raw = `#F9A1D0||とき色|7RP 7.5/8
 #4E4854|3:v|チャコールグレイ|5P 3/1
 #1C1C1C|Bk|ランプブラック|N1
 #1C1C1C||ブラック|N1`
+const furigana = {
+'紅梅色':'こうばい','蘇芳':'すおう','茜色':'あかね','朱色':'しゅ','紅樺色':'べにかば',
+'紅緋':'べにひ','鉛丹色':'えんたん','小豆色':'あずき','弁柄色':'べんがら','黄丹':'おうに',
+'肉桂色':'にっけい','樺色':'かば','桧皮色':'ひわだ','褐色':'かっしょく','黄土色':'おうど',
+'朽葉色':'くちば','芥子色':'からし','鶯茶':'うぐいすちゃ','刈安色':'かりやす','鶯色':'うぐいす',
+'抹茶色':'まっちゃ','苔色':'こけ','萌黄':'もえぎ','白緑':'びゃくろく','常磐色':'ときわ',
+'緑青色':'ろくしょう','千歳緑':'ちとせみどり','青磁色':'せいじ','鉄色':'てつ',
+'錆浅葱':'さびあさぎ','水浅葱':'みずあさぎ','浅葱色':'あさぎ','白群':'びゃくぐん',
+'納戸色':'なんど','藍鼠':'あいねず','濃藍':'こいあい','勿忘草色':'わすれなぐさ',
+'露草色':'つゆくさ','紺青':'こんじょう','勝色':'かち','群青色':'ぐんじょう','鉄紺':'てつこん',
+'藤納戸':'ふじなんど','紺藍':'こんあい','菫色':'すみれ','鳩羽色':'はとば','牡丹色':'ぼたん',
+'胡粉色':'ごふん','象牙色':'ぞうげ','銀鼠':'ぎんねず','茶鼠':'ちゃねず','利休鼠':'りきゅうねず',
+'鉛色':'なまり','紅海老茶':'べにえびちゃ','海老茶':'えびちゃ','杏色':'あんず','蜜柑色':'みかん',
+'卵色':'たまご','山吹色':'やまぶき','松葉色':'まつば','若竹色':'わかたけ','青竹色':'あおたけ',
+'新橋色':'しんばし','藍色':'あい','紫紺':'しこん','生成り色':'きなり'
+}
 const colors = raw.split('\n').map(line => {
 const [hex, pccs, name, munsell] = line.split('|')
-return { hex, pccs: pccs.trim(), name, munsell, isExam: pccs.trim() !== '' }
+const ruby = furigana[name]
+const displayName = ruby ? `<ruby>${name}<rt>${ruby}</rt></ruby>` : name
+return { hex, pccs: pccs.trim(), name, displayName, munsell, isExam: pccs.trim() !== '' }
 })
 const examColors = colors.filter(c => c.isExam)
 const nonExamColors = colors.filter(c => !c.isExam)
@@ -435,7 +454,7 @@ const info = document.createElement('div')
 info.className = 'info'
 const nameEl = document.createElement('div')
 nameEl.className = 'name'
-nameEl.textContent = color.name
+nameEl.innerHTML = color.displayName
 const pccsEl = document.createElement('div')
 pccsEl.className = 'pccs'
 pccsEl.textContent = color.pccs || '試験外'
