@@ -66,11 +66,14 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Hiragino San
 @media(min-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}.info{font-size:13px}.info .pccs{font-size:11px}}
 .reset{position:fixed;bottom:12px;left:12px;background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 12px;border-radius:4px;font-size:11px;cursor:pointer;z-index:100}
 .reset:active{transform:scale(0.95)}
+.pccs-nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,0.3);padding:8px;display:flex;justify-content:center;gap:12px;backdrop-filter:blur(4px)}
+.pccs-nav svg{display:block}
 </style>
 </head>
 <body>
 <div id="app">
 <header class="header"><h1>色彩検定1級 2次試験対策 JIS慣用色名</h1></header>
+<nav class="pccs-nav"><svg id="hue-circle" width="80" height="80" viewBox="0 0 100 100"></svg><svg id="tone-map" width="100" height="80" viewBox="0 0 120 100"></svg></nav>
 <main class="grid" id="grid" role="application" aria-label="JIS慣用色名学習グリッド"></main>
 <footer class="footer"><div class="stats"><span id="progress" aria-live="polite">0/61</span><span id="percent" aria-live="polite">0%</span></div></footer>
 <button class="reset" id="reset">リセット</button>
@@ -412,8 +415,52 @@ const ng = Math.round(g * ratio)
 const nb = Math.round(b * ratio)
 return `rgb(${nr},${ng},${nb})`
 }
+const hueColors = ['#d03a2f','#d93e24','#e25418','#ee7800','#f39800','#f9bf00','#eed600','#d9ce00','#b8c800','#7cb82f','#00a960','#00a37e','#00989a','#0092b2','#0080c0','#0068b7','#1b4293','#4b3c96','#7a4496','#9f3c94','#c33c88','#d7326d','#d7305b','#d03a44']
+const tonePos = {p:[25,18],lt:[45,22],'lt+':[45,22],b:[65,28],ltg:[30,40],sf:[50,45],v:[95,50],g:[35,62],d:[55,65],dk:[35,82],dkg:[20,82],dp:[60,85]}
+const parsePccs = (pccs) => {
+if (!pccs) return null
+const m = pccs.match(/^(\d+):(\w+)/)
+if (m) return { hue: parseInt(m[1]), tone: m[2].replace(/\+$/, '') }
+if (pccs.startsWith('N') || pccs === 'Bk') return { hue: 0, tone: 'n' }
+return null
+}
+const hueCircle = document.getElementById('hue-circle')
+const toneMap = document.getElementById('tone-map')
+const drawHueCircle = (activeHue) => {
+let svg = ''
+const cx = 50, cy = 50, r1 = 45, r2 = 28
+for (let i = 0; i < 24; i++) {
+const hue = i + 1
+const a1 = ((hue - 8) * 15 - 7.5) * Math.PI / 180
+const a2 = ((hue - 8) * 15 + 7.5) * Math.PI / 180
+const x1 = cx + r1 * Math.cos(a1), y1 = cy + r1 * Math.sin(a1)
+const x2 = cx + r1 * Math.cos(a2), y2 = cy + r1 * Math.sin(a2)
+const x3 = cx + r2 * Math.cos(a2), y3 = cy + r2 * Math.sin(a2)
+const x4 = cx + r2 * Math.cos(a1), y4 = cy + r2 * Math.sin(a1)
+const op = activeHue === hue ? 1 : 0.4
+svg += `<path d="M${x1},${y1} A${r1},${r1} 0 0,1 ${x2},${y2} L${x3},${y3} A${r2},${r2} 0 0,0 ${x4},${y4} Z" fill="${hueColors[i]}" opacity="${op}"/>`
+}
+if (activeHue > 0) {
+const a = ((activeHue - 8) * 15) * Math.PI / 180
+const mx = cx + (r1 + r2) / 2 * Math.cos(a), my = cy + (r1 + r2) / 2 * Math.sin(a)
+svg += `<circle cx="${mx}" cy="${my}" r="5" fill="none" stroke="#fff" stroke-width="2"/>`
+}
+hueCircle.innerHTML = svg
+}
+const drawToneMap = (activeTone, activeColor) => {
+let svg = `<polygon points="10,10 110,50 10,90" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>`
+svg += `<line x1="10" y1="10" x2="10" y2="90" stroke="rgba(255,255,255,0.2)"/>`
+Object.entries(tonePos).forEach(([t, [x, y]]) => {
+const isActive = t === activeTone || t + '+' === activeTone
+const op = isActive ? 1 : 0.4
+const fill = isActive && activeColor ? activeColor : 'rgba(255,255,255,0.5)'
+svg += `<circle cx="${x}" cy="${y}" r="${isActive ? 8 : 5}" fill="${fill}" opacity="${op}" stroke="${isActive ? '#fff' : 'none'}" stroke-width="2"/>`
+})
+toneMap.innerHTML = svg
+}
 let checkedState = 0n
 let lastColor = '#282828'
+let lastPccs = null
 const grid = document.getElementById('grid')
 const progress = document.getElementById('progress')
 const percent = document.getElementById('percent')
@@ -442,6 +489,9 @@ const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
 const textColor = lum > 0.4 ? 'rgba(0,0,0,0.9)' : 'rgba(255,255,255,0.95)'
 document.querySelector('.header h1').style.color = textColor
 document.querySelector('.footer').style.color = textColor
+const p = parsePccs(lastPccs)
+drawHueCircle(p ? p.hue : 0)
+drawToneMap(p ? p.tone : null, lastColor)
 }
 const createCell = (color, index) => {
 const cell = document.createElement('div')
@@ -474,6 +524,7 @@ cell.classList.toggle('checked')
 if (cell.classList.contains('checked')) {
 checkedState |= mask
 lastColor = color.hex
+lastPccs = color.pccs
 updateBackground()
 } else {
 checkedState &= ~mask
@@ -495,6 +546,7 @@ updateBackground()
 document.getElementById('reset').addEventListener('click', () => {
 checkedState = 0n
 lastColor = '#282828'
+lastPccs = null
 history.replaceState(null, '', location.pathname + location.search)
 document.querySelectorAll('.cell.checked').forEach(c => c.classList.remove('checked', 'revealed'))
 updateProgress()
