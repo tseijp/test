@@ -5,11 +5,11 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://test.tsei.jp/color.html</loc>
+    <loc>https://test.tsei.jp/color</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test.tsei.jp/name.html</loc>
+    <loc>https://test.tsei.jp/name</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
